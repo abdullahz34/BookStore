@@ -9,6 +9,15 @@ const app = express();
 // Middleware for parsing request body
 app.use(express.json());
 
+// Middleware for handling CORS
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ['Content-Type']
+    })
+)
+
 
 app.get('/', (request, response) => {
     console.log(request)
@@ -17,7 +26,6 @@ app.get('/', (request, response) => {
 });
 
 app.use('/books', booksRoute);
-
 
 
 mongoose
