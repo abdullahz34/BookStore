@@ -30,11 +30,29 @@ const EditBook = () => {
       });
   }, [])
   const handleEditBook = () => {
+    const containsNumbers = /\d/;
+
+    if (containsNumbers.test(title) || containsNumbers.test(author)) {
+      enqueueSnackbar('Title and Author should not contain numbers', { variant: 'error' });
+      return;
+    }
+
+    if (!Number.isInteger(Number(publishYear))) {
+      enqueueSnackbar('Publish Year must be an integer', { variant: 'error' });
+      return;
+    }
+
+    if (!title || !author || !publishYear) {
+      enqueueSnackbar('All fields must be filled', { variant: 'error' });
+      return;
+    }
+
     const data = {
       title,
       author,
-      publishYear,
+      publishYear: Number(publishYear),
     };
+    
     setLoading(true);
     axios
       .put(`http://localhost:5555/books/${id}`, data)
