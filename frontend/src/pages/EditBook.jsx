@@ -31,14 +31,15 @@ const EditBook = () => {
   }, [])
   const handleEditBook = () => {
     const containsNumbers = /\d/;
+    const fourDigitYear = /^\d{4}$/;
 
     if (containsNumbers.test(title) || containsNumbers.test(author)) {
       enqueueSnackbar('Title and Author should not contain numbers', { variant: 'error' });
       return;
     }
 
-    if (!Number.isInteger(Number(publishYear))) {
-      enqueueSnackbar('Publish Year must be an integer', { variant: 'error' });
+    if (!fourDigitYear.test(publishYear)) {
+      enqueueSnackbar('Publish Year must be a 4-digit integer', { variant: 'error' });
       return;
     }
 
@@ -52,7 +53,7 @@ const EditBook = () => {
       author,
       publishYear: Number(publishYear),
     };
-    
+
     setLoading(true);
     axios
       .put(`http://localhost:5555/books/${id}`, data)
