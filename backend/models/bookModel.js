@@ -25,9 +25,12 @@ const bookSchema = mongoose.Schema({
         type: Number,
         required: true,
         validate: {
-            validator: Number.isInteger,
-            message: '{VALUE} is not an integer value'
+            validator: function(v) {
+                return /^[0-9]{4}$/.test(v);
+            },
+            message: '{VALUE} is not a 4-digit year'
         }
+
     },
 }, {
     timestamps: true,
