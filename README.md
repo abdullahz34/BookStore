@@ -2,7 +2,7 @@
 
 ## Description
 
-A brief description of your project. What does it do? What technologies does it use?
+Book store project using MERN stack. 
 
 ## Installation
 
